@@ -1,0 +1,8 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Api Node.js",
+  "main": "src/server.js",
+  "author": "João Pedro",
+  "license": "MIT"
+}
