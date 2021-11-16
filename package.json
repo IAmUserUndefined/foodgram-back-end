@@ -4,5 +4,9 @@
   "description": "Api Node.js",
   "main": "src/server.js",
   "author": "João Pedro",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
+  }
 }
