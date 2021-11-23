@@ -3,7 +3,7 @@ class Photo {
 	userId: string;
 	url: string;
 	name: string;
-	filename: string;
+	key: string;
 }
 
 export { Photo };
