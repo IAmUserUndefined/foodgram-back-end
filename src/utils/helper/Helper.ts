@@ -6,6 +6,8 @@ import { v4 } from "uuid";
 import { hashSync, compareSync } from "bcryptjs";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import path from "path";
+import fs from "fs";
 
 class Helper {
 
@@ -27,6 +29,10 @@ class Helper {
 
 	static getAppUrlEnvironmentVariable(){
 		return process.env.APP_URL;
+	}
+
+	static getApiUrlEnvironmentVariable(){
+		return process.env.API_URL;
 	}
 
 	static getEmailEnvironmentVariable(){
@@ -66,6 +72,10 @@ class Helper {
 
 	static createTokenExpiryDate() {
 		return new Date().setMinutes(new Date().getMinutes() + 10);
+	}
+
+	static deleteFile(filename: string) {
+		fs.unlinkSync(path.resolve(__dirname, "..", "tmp", filename));
 	}
 
 }

@@ -4,6 +4,7 @@ interface IRequestRouters {
     body: any;
     query: any;
     params: any;
+    file: any;
     userId: string
 }
 

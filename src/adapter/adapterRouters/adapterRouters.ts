@@ -11,7 +11,8 @@ export default (router: (request: IRequestRouters) => Promise<IResponse>) => {
 			body: req.body,
 			query: req.query,
 			params: req.params,
-			userId: req.userId
+			userId: req.userId,
+			file: req.file
 		});
 
 		if (response instanceof UnauthorizedError)

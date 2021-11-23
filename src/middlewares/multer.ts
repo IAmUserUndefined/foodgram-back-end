@@ -32,4 +32,4 @@ const multerConfig = {
 	}
 };
 
-module.exports = multer(multerConfig).single("file");
+export default multer(multerConfig).single("file");

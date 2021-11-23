@@ -1,6 +1,6 @@
-import { Photo } from "../../../entities/Photo";
 import IPhotoTestRepository from "./IPhotoTestRepository";
 import prisma from "../../../../prisma/index";
+import { Photo } from "../../../entities/Photo";
 
 export class PhotoTestRepository implements IPhotoTestRepository {
 
@@ -27,12 +27,8 @@ export class PhotoTestRepository implements IPhotoTestRepository {
 		});
 	}
 
-	async getPhotos(userId: string): Promise<Photo[]> {
-		const photo = await prisma.photo.findMany({
-			where: {
-				userId: userId
-			}
-		});
+	async getPhotos(): Promise<Photo[]> {
+		const photo = await prisma.photo.findMany();
 
 		return photo;
 	}

@@ -25,11 +25,13 @@ describe("Test of environment variable get", () => {
 	test("Should return environment variable ", () => {
           
 		const appUrl = Helper.getAppUrlEnvironmentVariable();
+		const apiUrl = Helper.getApiUrlEnvironmentVariable();
 		const email = Helper.getEmailEnvironmentVariable();
 		const password = Helper.getEmailPasswordEnvironmentVariable();
 		const secretKeyJwt = Helper.getSecretKeyJwtEnvironmentVariable();
 
 		expect(appUrl).not.toBeUndefined();
+		expect(apiUrl).not.toBeUndefined();
 		expect(email).not.toBeUndefined();
 		expect(password).not.toBeUndefined();
 		expect(secretKeyJwt).not.toBeUndefined();
