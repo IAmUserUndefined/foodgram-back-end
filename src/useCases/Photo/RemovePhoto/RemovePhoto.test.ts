@@ -47,7 +47,7 @@ describe("Remove Photo", () => {
 			});
 
 		const response = await request(app)
-			.delete(`/photo/${photo[1].id}/${photo[1].key}`)
+			.delete(`/photo/${photo[0].id}/${photo[0].key}`)
 			.set("Authorization", `Bearer ${token.body.response}`);
 
 		expect(response.statusCode).toBe(200);

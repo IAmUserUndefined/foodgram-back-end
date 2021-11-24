@@ -7,22 +7,12 @@ export class PhotoTestRepository implements IPhotoTestRepository {
 	async createTestPhoto(): Promise<void> {
 		await prisma.user.create({
 			data: {
-				id: "aa98bc1b-22f4-4fc6-be64-3d830068bdqq",
+				id: "aa98bc1b-22f4-4fc6-be64-3d830068bdqqaaaaaaaa",
 				email: "joao@teste.com",
 				name: "João Pedro",
 				password: "$2a$10$qccZ2L8csoUcHQR1mMFkJulToLLZTe7Xo7DnM19dV4Ly3r1OkBg6S",
 				verificationToken: "544f818f5f5cd4cde44c611683fc71",
 				verifiedEmail: true
-			}
-		});
-
-		await prisma.photo.create({
-			data: {
-				id: "1",
-				userId: "aa98bc1b-22f4-4fc6-be64-3d830068bdqq",
-				name: "photo",
-				key: "156156415641561456-photo",
-				url: "https://photo"
 			}
 		});
 	}

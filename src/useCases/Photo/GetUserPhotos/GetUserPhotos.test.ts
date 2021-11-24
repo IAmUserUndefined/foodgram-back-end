@@ -34,7 +34,7 @@ describe("Get User Photos", () => {
 	afterAll(async () => {
 
 		const photos = await photoTestRepository.getPhotos();
-		const key = photos[1].key;
+		const key = photos[0].key;
 
 		Helper.deleteFile(key);
 

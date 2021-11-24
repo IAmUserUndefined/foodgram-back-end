@@ -7,15 +7,6 @@ describe(("Test of photo test repository"), () => {
 		await repository.createTestPhoto();
 	});
 
-	test("Should get photos", async () => {
-		const repository = new PhotoTestRepository();
-		const photo = await repository.getPhotos();
-		expect(photo[0].id).not.toBeUndefined();
-		expect(photo[0].userId).not.toBeUndefined();
-		expect(photo[0].name).not.toBeUndefined();
-		expect(photo[0].key).not.toBeUndefined();
-	});
-
 	test("Should remove test photo", async () => {
 		const repository = new PhotoTestRepository();
 		await repository.deleteTestPhoto();

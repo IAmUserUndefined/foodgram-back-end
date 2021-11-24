@@ -20,22 +20,22 @@ describe(("Test of photo repository"), () => {
 
 	test("Should get photos", async () => {
 		const repository = new PhotoRepository();
-		const room = await repository.getPhotos();
-		expect(room[0].id).toBe("1");
-		expect(room[0].userId).toBe("1");
-		expect(room[0].url).toBe("https://photo/1");
-		expect(room[0].name).toBe("photo");
-		expect(room[0].key).toBe("1515611189989-photo");
+		const photo = await repository.getPhotos();
+		expect(photo[0].id).toBe("1");
+		expect(photo[0].userId).toBe("1");
+		expect(photo[0].url).toBe("https://photo/1");
+		expect(photo[0].name).toBe("photo");
+		expect(photo[0].key).toBe("1515611189989-photo");
 	});
 
 	test("Should get user photos", async () => {
 		const repository = new PhotoRepository();
-		const room = await repository.getUserPhotos("1");
-		expect(room[0].id).toBe("1");
-		expect(room[0].userId).toBe("1");
-		expect(room[0].url).toBe("https://photo/1");
-		expect(room[0].name).toBe("photo");
-		expect(room[0].key).toBe("1515611189989-photo");
+		const photo = await repository.getUserPhotos("1");
+		expect(photo[0].id).toBe("1");
+		expect(photo[0].userId).toBe("1");
+		expect(photo[0].url).toBe("https://photo/1");
+		expect(photo[0].name).toBe("photo");
+		expect(photo[0].key).toBe("1515611189989-photo");
 	});
 
 	test("Should delete photo", async () => {
