@@ -27,7 +27,7 @@
 
 Você precisa ter instalado em sua máquina o Node, GIT e o pacote Yarn instalado de forma global, após isso rode o seguinte comando: 
 ```sh
-  git clone https://github.com/JPedro910/my-photos-back-end.git
+  git clone https://github.com/JPedro910/foodgram-back-end.git
 ```
 Após clonar a aplicação, entre em sua pasta e rode o seguinte comando:
 ```sh
