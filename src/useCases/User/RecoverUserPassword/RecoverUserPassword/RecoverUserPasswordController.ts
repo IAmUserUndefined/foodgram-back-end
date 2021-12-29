@@ -6,7 +6,7 @@ export default new class RecoverPasswordController {
 
 	async handle(request: IRequestRouters) {
 
-		const { email, token } = request.query;
+		const { email, verificationToken } = request.query;
 
 		const { password, passwordConfirm } = request.body;
 
