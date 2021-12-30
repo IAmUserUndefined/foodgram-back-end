@@ -4,7 +4,7 @@ import prisma from "../../../../prisma/index";
 
 class PhotoRepository implements IPhotoRepository {
 
-	async store(id: string, userId: string, url: string, originalname: string, filename: string, author: string): Promise<void> {
+	async store(id: string, userId: string, url: string, originalname: string, filename: string): Promise<void> {
 		await prisma.photo.create({
 			data: {
 				id: id,
@@ -12,7 +12,6 @@ class PhotoRepository implements IPhotoRepository {
 				url: url,
 				name: originalname,
 				key: filename,
-				author: author
 			}
 		});
 	}

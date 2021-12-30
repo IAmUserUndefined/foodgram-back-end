@@ -2,7 +2,7 @@ import { UserRepository } from "../../../repositories/User/UserRepository/UserRe
 import { MissingParamError } from "../../../utils/errors";
 import IUpdateUserName from "./IUpdateUserName";
 
-export default class CreateUserRules {
+export default class UpdateUserNameRules {
 	private repository: UserRepository;
 
 	constructor() {

@@ -26,6 +26,5 @@ model Photo {
   url String
   name String
   key String
-  author String @default("")
   User User @relation(fields: [userId], references: [id])
 }
