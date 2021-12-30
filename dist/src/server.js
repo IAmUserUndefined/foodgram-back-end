@@ -7,4 +7,4 @@ const express_1 = __importDefault(require("express"));
 const app_1 = __importDefault(require("./app"));
 const server = (0, express_1.default)();
 server.use(app_1.default);
-server.listen(3333);
+server.listen(process.env.PORT || 3333);
