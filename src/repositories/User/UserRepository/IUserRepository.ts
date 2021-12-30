@@ -1,6 +1,7 @@
 interface IUserRepository {
     store(id: string, email: string, name:string, hash: string, token: string): Promise<void>;
     verifyEmail(email: string, token: string): Promise<void>;
+    getName(id: string): Promise<string>;
     updateName(id: string, name: string): Promise<void>;
     destroy(id: string): Promise<void>;
     findEmailById(id: string): Promise<string>;

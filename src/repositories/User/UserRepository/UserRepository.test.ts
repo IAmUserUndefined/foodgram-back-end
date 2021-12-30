@@ -11,6 +11,12 @@ describe(("Test of user repository"), () => {
 		const repository = new UserRepository();
 		await repository.verifyEmail("email@teste.com", "abc-123-456");
 	});
+	
+	test("Should get name", async () => {
+		const repository = new UserRepository();
+		const name = await repository.getName("1");
+		expect(name).toBe("João Pedro");
+	});
 
 	test("Should update name", async () => {
 		const repository = new UserRepository();
