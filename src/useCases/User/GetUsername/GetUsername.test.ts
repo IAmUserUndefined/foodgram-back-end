@@ -28,7 +28,10 @@ describe("Update User Email", () => {
 			});
 
 		const response = await request(app)
-			.get("/get-name")
+			.post("/get-name")
+			.send({
+				userId: "aa98bc1b-22f4-4fc6-be64-3d830068bddc"
+			})
 			.set("Authorization", `Bearer ${token.body.response}`);
 
 		expect(response.body.response).toBe("João Pedro");

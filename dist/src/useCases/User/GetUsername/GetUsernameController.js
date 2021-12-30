@@ -17,7 +17,7 @@ const GetUsernameRules_1 = __importDefault(require("./GetUsernameRules"));
 exports.default = new class GetUsernameController {
     handle(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userId = request.userId;
+            const { userId } = request.body;
             const getUsernameRules = new GetUsernameRules_1.default();
             const response = yield getUsernameRules.execute({ userId });
             return (0, adapterResponses_1.ok)(response);

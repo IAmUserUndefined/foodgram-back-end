@@ -5,7 +5,8 @@ import GetUsernameRules from "./GetUsernameRules";
 export default new class GetUsernameController {
 
 	async handle(request: IRequestRouters) {
-		const userId = request.userId;
+
+		const { userId } = request.body;
 
 		const getUsernameRules = new GetUsernameRules();
 

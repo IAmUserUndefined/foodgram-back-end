@@ -26,7 +26,7 @@ router.delete("/user/delete", (0, adapterMiddlewares_1.default)(authenticateUser
 router.patch("/user/password/update", (0, adapterMiddlewares_1.default)(authenticateUser_1.default), (0, adapterRouters_1.default)(UpdateUserPasswordController_1.default.handle));
 router.post("/user/email/send-token-update-email", (0, adapterMiddlewares_1.default)(authenticateUser_1.default), (0, adapterRouters_1.default)(SendUserEmailUpdateLinkController_1.default.handle));
 router.patch("/update-email", (0, adapterMiddlewares_1.default)(authenticateUser_1.default), (0, adapterRouters_1.default)(UpdateUserEmailController_1.default.handle));
-router.get("/get-name", (0, adapterMiddlewares_1.default)(authenticateUser_1.default), (0, adapterRouters_1.default)(GetUsernameController_1.default.handle));
+router.post("/get-name", (0, adapterMiddlewares_1.default)(authenticateUser_1.default), (0, adapterRouters_1.default)(GetUsernameController_1.default.handle));
 router.patch("/update-name", (0, adapterMiddlewares_1.default)(authenticateUser_1.default), (0, adapterRouters_1.default)(UpdateUserNameController_1.default.handle));
 router.post("/user/password/send-token-password-recover", (0, adapterRouters_1.default)(SendUserPasswordRecoveryLinkController_1.default.handle));
 router.patch("/user/password/password-recover", (0, adapterRouters_1.default)(RecoverUserPasswordController_1.default.handle));
