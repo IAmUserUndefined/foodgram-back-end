@@ -4,6 +4,8 @@ class Photo {
 	url: string;
 	name: string;
 	key: string;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export { Photo };

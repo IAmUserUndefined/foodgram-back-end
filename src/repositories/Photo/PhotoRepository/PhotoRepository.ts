@@ -17,13 +17,20 @@ class PhotoRepository implements IPhotoRepository {
 	}
 
 	async getPhotos(): Promise<Photo[]>{
-		return await prisma.photo.findMany({});
+		return await prisma.photo.findMany({
+			orderBy: {
+				createdAt: "desc"
+			}
+		});
 	}
 
 	async getUserPhotos(userId: string): Promise<Photo[]>{
 		return await prisma.photo.findMany({
 			where: {
 				userId: userId
+			},
+			orderBy: {
+				createdAt: "desc"
 			}
 		});
 	}
