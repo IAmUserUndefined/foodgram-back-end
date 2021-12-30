@@ -1,6 +1,6 @@
 # Foodgram - Back-end - Api
 
-# 🔗 Foodgram
+# <a href="https://foodgram-jp-dev.herokuapp.com/">🔗 Foodgram</a>
 <p>🚀 Aplicação voltada para armazenamento e publicação de fotos, voltadas a gastronomia</p>
 
 # Status da Aplicação
@@ -25,7 +25,7 @@
 
 # Instalação
 
-Você precisa ter instalado em sua máquina o Node, GIT e o pacote Yarn instalado de forma global, após isso rode o seguinte comando: 
+Você precisa ter instalado em sua máquina o Node, GIT, um banco de dados MariaDB/MySQL instalado localmente e o pacote Yarn instalado de forma global, após isso rode o seguinte comando: 
 ```sh
   git clone https://github.com/JPedro910/foodgram-back-end.git
 ```
@@ -35,7 +35,7 @@ Após clonar a aplicação, entre em sua pasta e rode o seguinte comando:
 ```
 # Execução
 
-Após a instalação, substitua no arquivo de variáveis de ambiente de teste o email e senha que a aplicação pede, você deve permitir o acesso do nodemailer a seu email, após isso rode o seguinte comando:
+Após a instalação, substitua as variáveis de ambiente de teste que a aplicação pede, você deve permitir o acesso do nodemailer a seu email, após isso rode o seguinte comando:
 ```sh
   yarn test --watchAll
 ```

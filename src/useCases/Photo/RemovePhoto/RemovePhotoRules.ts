@@ -14,7 +14,11 @@ export default class RemovePhotoRules {
 
 		await this.repository.destroy(photoId);
 
-		Helper.deleteFile(key);
+		if(Helper.getStorageEnvironmentVariable() === "s3"){ 
+			Helper.removeFileAws(key);
+		}else{
+			Helper.deleteFile(key);
+		}
 
 		return "Foto excluída com sucesso";
 	}

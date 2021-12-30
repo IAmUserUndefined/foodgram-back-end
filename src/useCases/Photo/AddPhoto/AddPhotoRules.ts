@@ -11,14 +11,16 @@ export default class AddPhotoRules {
 		this.repository = new PhotoRepository();
 	}
 
-	async execute( { userId, filename, originalname }: IAddPhoto ) {
+	async execute( { userId, filename, originalname, location, key }: IAddPhoto ) {
         
-		if(!filename)
+		if(!filename && !location)
 			return new MissingParamError("Houve um problema no downlodad da foto, tente novamente");
 
-		const url = `${Helper.getApiUrlEnvironmentVariable()}/${filename}`;
+		const url = location || `${Helper.getApiUrlEnvironmentVariable()}/${filename}`;
+	
+		const photoKey = filename || key;
 
-		await this.repository.store(Helper.createId(), userId, url, originalname, filename);
+		await this.repository.store(Helper.createId(), userId, url, originalname, photoKey);
 
 		return "Foto adicionada com sucesso";
 	}

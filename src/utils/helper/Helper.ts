@@ -8,6 +8,7 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import path from "path";
 import fs from "fs";
+import aws from "aws-sdk";
 
 class Helper {
 
@@ -45,6 +46,40 @@ class Helper {
 
 	static getSecretKeyJwtEnvironmentVariable(){
 		return process.env.SECRET_KEY_JWT;
+	}
+
+	static getAwsAccessKeyEnvironmentVariable(){
+		return process.env.AWS_ACCESS_KEY_ID;
+	}
+
+	static getAwsAccessSecretKeyEnvironmentVariable(){
+		return process.env.AWS_SECRET_KEY_ID;
+	}
+
+	static getAwsDefaultRegionEnvironmentVariable(){
+		return process.env.AWS_DEFAULT_REGION;
+	}
+
+	static getStorageEnvironmentVariable(){
+		return process.env.STORAGE;
+	}
+
+	static getBucketNamenvironmentVariable(){
+		return process.env.BUCKET_NAME;
+	}
+
+	static async removeFileAws(key: string){
+
+		const s3 =  new aws.S3({
+			accessKeyId: this.getAwsAccessKeyEnvironmentVariable(),
+			secretAccessKey: this.getAwsAccessSecretKeyEnvironmentVariable(),
+			region: this.getAwsDefaultRegionEnvironmentVariable()
+		});
+
+		s3.deleteObject({
+			Bucket: this.getBucketNamenvironmentVariable(),
+			Key: key
+		}).promise();
 	}
 
 	static isPasswordValid(password: string){
