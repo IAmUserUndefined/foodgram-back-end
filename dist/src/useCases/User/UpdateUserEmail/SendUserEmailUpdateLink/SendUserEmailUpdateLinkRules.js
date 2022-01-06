@@ -35,7 +35,7 @@ class SendUserEmailUpdateLinkRules {
                 email: email,
                 token: token
             });
-            return "O link de atualização de email foi enviado para seu email, ele é válido por alguns minutos";
+            return "O link de atualização de email foi enviado para seu email, ele é válido por alguns minutos, não esqueça de verificar sua caixa de spam";
         });
     }
 }
