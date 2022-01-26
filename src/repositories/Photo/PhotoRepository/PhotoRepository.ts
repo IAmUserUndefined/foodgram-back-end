@@ -5,42 +5,66 @@ import prisma from "../../../../prisma/index";
 class PhotoRepository implements IPhotoRepository {
 
 	async store(id: string, userId: string, url: string, originalname: string, filename: string): Promise<void> {
-		await prisma.photo.create({
-			data: {
-				id: id,
-				userId: userId,
-				url: url,
-				name: originalname,
-				key: filename,
-			}
-		});
+		try {
+			await prisma.photo.create({
+				data: {
+					id: id,
+					userId: userId,
+					url: url,
+					name: originalname,
+					key: filename,
+				}
+			});
+		}
+		
+		catch(e) {
+			console.log(e);
+		}
 	}
 
 	async getPhotos(): Promise<Photo[]>{
-		return await prisma.photo.findMany({
-			orderBy: {
-				createdAt: "desc"
-			}
-		});
+		try {
+			return await prisma.photo.findMany({
+				orderBy: {
+					createdAt: "desc"
+				}
+			});
+		}
+
+		catch(e) {
+			console.log(e);
+		}
 	}
 
 	async getUserPhotos(userId: string): Promise<Photo[]>{
-		return await prisma.photo.findMany({
-			where: {
-				userId: userId
-			},
-			orderBy: {
-				createdAt: "desc"
-			}
-		});
+		try {
+			return await prisma.photo.findMany({
+				where: {
+					userId: userId
+				},
+				orderBy: {
+					createdAt: "desc"
+				}
+			});
+		}
+
+		catch(e) {
+			console.log(e);
+		}
 	}
 
 	async destroy(id: string) {
-		await prisma.photo.delete({
-			where: {
-				id: id
-			}
-		});
+		try {
+			await prisma.photo.delete({
+				where: {
+					id: id
+				}
+			});
+		}
+
+		catch(e) {
+			console.log(e);
+		}
 	}
 }
 

@@ -70,16 +70,22 @@ class Helper {
 
 	static async removeFileAws(key: string){
 
-		const s3 =  new aws.S3({
-			accessKeyId: this.getAwsAccessKeyEnvironmentVariable(),
-			secretAccessKey: this.getAwsAccessSecretKeyEnvironmentVariable(),
-			region: this.getAwsDefaultRegionEnvironmentVariable()
-		});
+		try {
+			const s3 = new aws.S3({
+				accessKeyId: this.getAwsAccessKeyEnvironmentVariable(),
+				secretAccessKey: this.getAwsAccessSecretKeyEnvironmentVariable(),
+				region: this.getAwsDefaultRegionEnvironmentVariable()
+			});
+	
+			s3.deleteObject({
+				Bucket: this.getBucketNamenvironmentVariable(),
+				Key: key
+			}).promise();
+		}
 
-		s3.deleteObject({
-			Bucket: this.getBucketNamenvironmentVariable(),
-			Key: key
-		}).promise();
+		catch(e) {
+			console.log(e);
+		}
 	}
 
 	static isPasswordValid(password: string){
