@@ -8,17 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const errors_1 = require("../../../../utils/errors");
 const UserRepository_1 = require("../../../../repositories/User/UserRepository/UserRepository");
-const Mail_1 = __importDefault(require("../../../../provider/Mail/Mail"));
 class UpdateUserEmailRules {
     constructor() {
         this.repository = new UserRepository_1.UserRepository;
-        this.mail = new Mail_1.default();
     }
     execute({ id, email, token }) {
         return __awaiter(this, void 0, void 0, function* () {
