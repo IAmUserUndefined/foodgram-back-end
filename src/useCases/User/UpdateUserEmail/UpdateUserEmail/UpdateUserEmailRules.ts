@@ -1,16 +1,13 @@
 import { InvalidParamError, MissingParamError } from "../../../../utils/errors";
 import { UserRepository } from "../../../../repositories/User/UserRepository/UserRepository";
-import Mail from "../../../../provider/Mail/Mail";
 import IUpdateUserEmail from "./IUpdateUserEmail";
 
 export default class UpdateUserEmailRules {
 
 	private repository: UserRepository;
-	private mail: Mail;
 
 	constructor() {
 		this.repository = new UserRepository;
-		this.mail = new Mail();
 	}
 
 	async execute( { id, email, token }: IUpdateUserEmail ) {
