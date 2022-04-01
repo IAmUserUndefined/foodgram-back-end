@@ -25,7 +25,7 @@ export default class SendUserPasswordRecoveryLinkRules {
 		const token = Helper.createToken();
 
 		await this.repository.updateVerificationTokenByEmail(email, token);
-		await this.repository.updateVerificationTokenExpiryDateByEmail(email, BigInt(Helper.createTokenExpiryDate()));
+		await this.repository.updateVerificationTokenExpiryDateByEmail(email, Helper.createTokenExpiryDate());
 
 		await this.mail.sendMail(email, "Recuperação de Senha", "recoverPasswordEmailBody", {
 			appUrl: Helper.getAppUrlEnvironmentVariable(),

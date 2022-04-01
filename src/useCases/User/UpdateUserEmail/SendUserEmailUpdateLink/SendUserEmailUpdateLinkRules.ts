@@ -24,7 +24,7 @@ export default class SendUserEmailUpdateLinkRules {
 		const token = Helper.createToken();
 
 		await this.repository.updateVerificationTokenById(id, token);
-		await this.repository.updateVerificationTokenExpiryDateById(id, BigInt(Helper.createTokenExpiryDate()));
+		await this.repository.updateVerificationTokenExpiryDateById(id, Helper.createTokenExpiryDate());
 
 		await this.mail.sendMail(email, "Atualização de Email", "updateUserEmailBody", {
 			appUrl: Helper.getAppUrlEnvironmentVariable(),

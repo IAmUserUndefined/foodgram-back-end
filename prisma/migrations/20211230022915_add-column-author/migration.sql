@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `photo` ADD COLUMN `author` VARCHAR(191) NOT NULL DEFAULT '';

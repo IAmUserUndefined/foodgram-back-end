@@ -34,6 +34,7 @@ describe("Test of environment variable get", () => {
 		const accessKey = Helper.getAwsAccessKeyEnvironmentVariable();
 		const secretKey = Helper.getSecretKeyJwtEnvironmentVariable();
 		const region = Helper.getAwsDefaultRegionEnvironmentVariable();
+		const databaseURL = Helper.getDatabaseUrlEnvironmentVariable();
 
 		expect(appUrl).not.toBeUndefined();
 		expect(apiUrl).not.toBeUndefined();
@@ -45,6 +46,7 @@ describe("Test of environment variable get", () => {
 		expect(accessKey).not.toBeUndefined();
 		expect(secretKey).not.toBeUndefined();
 		expect(region).not.toBeUndefined();
+		expect(databaseURL).not.toBeUndefined();
 	});
 });
 

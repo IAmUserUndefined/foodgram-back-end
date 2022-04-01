@@ -6,8 +6,6 @@ class User {
 	verifiedEmail: boolean;
 	verificationToken: string;
 	verificationTokenExpiryDate: string;
-	createdAt: Date;
-	updatedAt: Date;
 }
   
 export { User };

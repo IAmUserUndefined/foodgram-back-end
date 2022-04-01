@@ -1,18 +1,18 @@
-import prisma from "../../../../prisma/index";
+import "../../../database/index";
+import UserModel from "../../../database/models/User";
 import IUserRepository from "./IUserRepository";
 
 export class UserRepository implements IUserRepository{
 
 	async store(id: string, email: string, name: string, hash: string, token: string): Promise<void> {
 		try {
-			await prisma.user.create({
-				data: {
-					id: id,
-					email: email,
-					name: name,
-					password: hash,
-					verificationToken: token
-				}
+			await UserModel.create({
+				_id: id,
+				email: email,
+				name: name,
+				password: hash,
+				verificationToken: token,
+				verificationTokenExpiryTime: 0
 			});
 		}
 
@@ -23,25 +23,13 @@ export class UserRepository implements IUserRepository{
 
 	async verifyEmail(email: string, token: string): Promise<void> {
 		try {
-			const user = await prisma.user.findMany({
-				where: {
-					AND: [
-						{ email: { equals: email } },
-						{ verificationToken: { equals: token }
-						},
-					],
-				},
-			});
-
-			
-			await prisma.user.update({
-				where:{
-					id: user[0].id
-				},
-				data: {
-					verifiedEmail: true
-				}
-			});
+			await UserModel.updateOne({
+				email: email,
+				verificationToken: token
+			},
+		
+			{ verifiedEmail: true }
+			);
 		}
 
 		catch(e) {
@@ -51,11 +39,10 @@ export class UserRepository implements IUserRepository{
 
 	async getName(id: string): Promise<string> {
 		try {
-			const { name } = await prisma.user.findUnique({
-				where: {
-					id: id
-				}
-			});
+			const { name } = await UserModel.findOne(
+				{
+					_id: id
+				});
 	
 			return name;
 		}
@@ -67,14 +54,10 @@ export class UserRepository implements IUserRepository{
 
 	async updateName(id: string, name: string): Promise<void> {
 		try {
-			await prisma.user.update({
-				where: {
-					id: id
-				},
-				data: {
-					name: name
-				}
-			});
+			await UserModel.updateOne(
+				{ _id: id },
+				{ name: name }
+			);
 		}
 
 		catch(e) {
@@ -84,11 +67,7 @@ export class UserRepository implements IUserRepository{
 
 	async destroy(id: string): Promise<void> {
 		try {
-			await prisma.user.delete({
-				where: {
-					id: id
-				}
-			});
+			await UserModel.deleteOne( { _id: id } );
 		}
 
 		catch(e) {
@@ -98,13 +77,11 @@ export class UserRepository implements IUserRepository{
 
 	async findEmailById(id: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					id: id
-				}
-			});
+			const { email } = await UserModel.findOne(
+				{ _id: id }
+			);
 	
-			return user.email;
+			return email;
 		}
 
 		catch(e) {
@@ -114,15 +91,11 @@ export class UserRepository implements IUserRepository{
 
 	async findEmailByEmail(email: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					email: email
-				}
-			});
+			const userEmail = await UserModel.findOne(
+				{ email: email }
+			);
 	
-			const userEmail = user ? user.email : null;
-	
-			return userEmail;
+			return userEmail ? userEmail.email : null;
 		}
 
 		catch(e) {
@@ -132,17 +105,12 @@ export class UserRepository implements IUserRepository{
 
 	async findByEmailVerified(email: string): Promise<string> {
 		try {
-			const user = await prisma.user.findMany({
-				where: {
-					AND: [
-						{ email: { equals: email } },
-						{ verifiedEmail: { equals: true }
-						},
-					],
-				},
+			const user = await UserModel.findOne({
+				email: email,
+				verifiedEmail: true
 			});
-	
-			const userEmail = user[0] ? user[0].email : null;
+
+			const userEmail = user ? user.email : null;
 	
 			return userEmail;
 		}
@@ -154,13 +122,12 @@ export class UserRepository implements IUserRepository{
 
 	async getId(email: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
+			const { _id } = await UserModel.findOne(
+				{
 					email: email
-				}
-			});
+				});
 	
-			return user.id;
+			return _id;
 		}
 
 		catch(e) {
@@ -170,13 +137,11 @@ export class UserRepository implements IUserRepository{
 
 	async getPasswordByEmail(email: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					email: email
-				}
+			const { password } = await UserModel.findOne({
+				email: email
 			});
 	
-			return user.password;
+			return password;
 		}
 
 		catch(e) {
@@ -186,13 +151,11 @@ export class UserRepository implements IUserRepository{
 
 	async getPasswordById(id: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					id: id
-				}
+			const { password } = await UserModel.findOne({
+				_id: id
 			});
 	
-			return user.password;
+			return password;
 		}
 
 		catch(e) {
@@ -202,13 +165,12 @@ export class UserRepository implements IUserRepository{
 
 	async getVerificationTokenById(id: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					id: id
-				}
-			});
+			const { verificationToken } = await UserModel.findOne(
+				{
+					_id: id,
+				});
 	
-			return user.verificationToken;
+			return verificationToken;
 		}
 
 		catch(e) {
@@ -218,13 +180,12 @@ export class UserRepository implements IUserRepository{
 
 	async getVerificationTokenByEmail(email: string): Promise<string> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					email: email
-				}
-			});
+			const { verificationToken } = await UserModel.findOne(
+				{
+					email: email,
+				});
 	
-			return user.verificationToken;
+			return verificationToken;
 		}
 
 		catch(e) {
@@ -234,14 +195,10 @@ export class UserRepository implements IUserRepository{
 
 	async updateVerificationTokenById(id: string, verificationToken: string): Promise<void> {
 		try {
-			await prisma.user.update({
-				where: {
-					id: id
-				},
-				data: {
-					verificationToken: verificationToken
-				}
-			});
+			await UserModel.updateOne(
+				{ _id: id },
+				{ verificationToken: verificationToken }
+			);
 		}
 
 		catch(e) {
@@ -250,25 +207,20 @@ export class UserRepository implements IUserRepository{
 	}
 
 	async updateVerificationTokenByEmail(email: string, verificationToken: string): Promise<void> {
-		await prisma.user.update({
-			where: {
-				email: email
-			},
-			data: {
-				verificationToken: verificationToken
-			}
-		});
+		await UserModel.updateOne(
+			{ email: email },
+			{ verificationToken: verificationToken }
+		);
 	}
 
-	async getVerificationTokenExpiryDateById(id: string): Promise<bigint> {
+	async getVerificationTokenExpiryDateById(id: string): Promise<number> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					id: id
-				}
-			});
+			const { verificationTokenExpiryTime }  = await UserModel.findOne(
+				{
+					_id: id,
+				});
 	
-			return user.verificationTokenExpiryTime;
+			return verificationTokenExpiryTime;
 		}
 
 		catch(e) {
@@ -276,15 +228,14 @@ export class UserRepository implements IUserRepository{
 		}
 	}
 
-	async getVerificationTokenExpiryDateByEmail(email: string): Promise<bigint> {
+	async getVerificationTokenExpiryDateByEmail(email: string): Promise<number> {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					email: email
-				}
-			});
-	
-			return user.verificationTokenExpiryTime;
+			const { verificationTokenExpiryTime }  = await UserModel.findOne(
+				{
+					email: email,
+				});
+
+			return verificationTokenExpiryTime;
 		}
 
 		catch(e) {
@@ -292,16 +243,12 @@ export class UserRepository implements IUserRepository{
 		}
 	}
 
-	async updateVerificationTokenExpiryDateById(id: string, verificationTokenExpiryDate: bigint): Promise<void> {
+	async updateVerificationTokenExpiryDateById(id: string, verificationTokenExpiryDate: number): Promise<void> {
 		try {
-			await prisma.user.update({
-				where: {
-					id: id
-				},
-				data: {
-					verificationTokenExpiryTime: verificationTokenExpiryDate
-				}
-			});
+			await UserModel.updateOne(
+				{ _id: id },
+				{ verificationTokenExpiryTime: verificationTokenExpiryDate }
+			);
 		}
 
 		catch(e) {
@@ -309,16 +256,12 @@ export class UserRepository implements IUserRepository{
 		}
 	}
 
-	async updateVerificationTokenExpiryDateByEmail(email: string, verificationTokenExpiryDate: bigint): Promise<void> {
+	async updateVerificationTokenExpiryDateByEmail(email: string, verificationTokenExpiryDate: number): Promise<void> {
 		try {
-			await prisma.user.update({
-				where: {
-					email: email
-				},
-				data: {
-					verificationTokenExpiryTime: verificationTokenExpiryDate
-				}
-			});
+			await UserModel.updateOne(
+				{ email: email },
+				{ verificationTokenExpiryTime: verificationTokenExpiryDate }
+			);
 		}
 
 		catch(e) {
@@ -328,14 +271,10 @@ export class UserRepository implements IUserRepository{
 
 	async updateEmail(id: string, email: string): Promise<void> {
 		try {
-			await prisma.user.update({
-				where: {
-					id: id
-				},
-				data: {
-					email: email
-				}
-			});
+			await UserModel.updateOne(
+				{ _id: id },
+				{ email: email }
+			);
 		}
 
 		catch(e) {
@@ -345,14 +284,10 @@ export class UserRepository implements IUserRepository{
 
 	async updatePasswordById(id: string, password: string): Promise<void> {
 		try {
-			await prisma.user.update({
-				where: {
-					id: id
-				},
-				data: {
-					password: password
-				}
-			});
+			await UserModel.updateOne(
+				{ _id: id },
+				{ password: password },
+			);
 		}
 
 		catch(e) {
@@ -363,14 +298,10 @@ export class UserRepository implements IUserRepository{
 	async updatePasswordByEmail(email: string, password: string): Promise<void> {
 		
 		try {
-			await prisma.user.update({
-				where: {
-					email: email
-				},
-				data: {
-					password: password
-				}
-			});
+			await UserModel.updateOne(
+				{ email: email },
+				{ password: password },
+			);
 		}
 		
 		catch(e) {

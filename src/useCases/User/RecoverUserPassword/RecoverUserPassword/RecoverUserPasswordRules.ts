@@ -38,7 +38,7 @@ export default class RecoverPasswordRules {
 
 		await this.repository.updatePasswordByEmail(email, Helper.encryptPassword(password));
 
-		await this.repository.updateVerificationTokenExpiryDateByEmail(email, BigInt(0));
+		await this.repository.updateVerificationTokenExpiryDateByEmail(email, 0);
 
 		return "Senha atualizada com sucesso";
 	}

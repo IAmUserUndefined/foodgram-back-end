@@ -1,19 +1,18 @@
-import IPhotoRepository from "./IPhotoRepository";
+import "../../../database/index";
 import { Photo } from "../../../entities/Photo";
-import prisma from "../../../../prisma/index";
+import PhotoModel from "../../../database/models/Photo";
+import IPhotoRepository from "./IPhotoRepository";
 
 class PhotoRepository implements IPhotoRepository {
 
 	async store(id: string, userId: string, url: string, originalname: string, filename: string): Promise<void> {
 		try {
-			await prisma.photo.create({
-				data: {
-					id: id,
-					userId: userId,
-					url: url,
-					name: originalname,
-					key: filename,
-				}
+			await PhotoModel.create({
+				_id: id,
+				userId: userId,
+				url: url,
+				name: originalname,
+				key: filename,
 			});
 		}
 		
@@ -24,11 +23,23 @@ class PhotoRepository implements IPhotoRepository {
 
 	async getPhotos(): Promise<Photo[]>{
 		try {
-			return await prisma.photo.findMany({
-				orderBy: {
-					createdAt: "desc"
-				}
+			const photo = await PhotoModel.find({});
+			const objects: Photo[] = [];
+
+			photo.map((object: Photo) => {
+				const photo = { 
+					_id: object._id,
+					id: object._id,
+					userId: object.userId,
+					url: object.url,
+					name: object.name,
+					key: object.key,
+				};
+
+				objects.push(photo);
 			});
+
+			return objects;
 		}
 
 		catch(e) {
@@ -38,14 +49,23 @@ class PhotoRepository implements IPhotoRepository {
 
 	async getUserPhotos(userId: string): Promise<Photo[]>{
 		try {
-			return await prisma.photo.findMany({
-				where: {
-					userId: userId
-				},
-				orderBy: {
-					createdAt: "desc"
-				}
+			const photo: Photo[] = await PhotoModel.find({ userId: userId });
+			const objects: Photo[] = [];
+
+			photo.map((object: Photo) => {
+				const photo = { 
+					_id: object._id,
+					id: object._id,
+					userId: object.userId,
+					url: object.url,
+					name: object.name,
+					key: object.key,
+				};
+
+				objects.push(photo);
 			});
+
+			return objects;
 		}
 
 		catch(e) {
@@ -55,10 +75,8 @@ class PhotoRepository implements IPhotoRepository {
 
 	async destroy(id: string) {
 		try {
-			await prisma.photo.delete({
-				where: {
-					id: id
-				}
+			await PhotoModel.deleteOne({
+				_id: id
 			});
 		}
 

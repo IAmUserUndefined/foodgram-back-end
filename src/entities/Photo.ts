@@ -1,11 +1,10 @@
 class Photo {
-	readonly id: string;
+	readonly _id: string;
+	id: string;
 	userId: string;
 	url: string;
 	name: string;
 	key: string;
-	createdAt: Date;
-	updatedAt: Date;
 }
 
 export { Photo };

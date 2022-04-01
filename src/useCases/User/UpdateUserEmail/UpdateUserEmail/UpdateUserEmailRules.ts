@@ -22,7 +22,7 @@ export default class UpdateUserEmailRules {
 
 		await this.repository.updateEmail(id, email);
 
-		await this.repository.updateVerificationTokenExpiryDateById(id, BigInt(0));
+		await this.repository.updateVerificationTokenExpiryDateById(id, 0);
 
 		return "Email atualizado com sucesso";
 	}

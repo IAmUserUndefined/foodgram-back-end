@@ -68,6 +68,10 @@ class Helper {
 		return process.env.BUCKET_NAME;
 	}
 
+	static getDatabaseUrlEnvironmentVariable(){
+		return process.env.DATABASE_URL;
+	}
+
 	static async removeFileAws(key: string){
 
 		try {

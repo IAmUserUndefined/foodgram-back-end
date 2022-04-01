@@ -14,10 +14,10 @@ interface IUserRepository {
     getVerificationTokenByEmail(email: string): Promise<string>;
     updateVerificationTokenById(id: string, verificationToken: string): Promise<void>;
     updateVerificationTokenByEmail(email: string, verificationToken: string): Promise<void>;
-    getVerificationTokenExpiryDateById(id: string): Promise<bigint>;
-    getVerificationTokenExpiryDateByEmail(email: string): Promise<bigint>;
-    updateVerificationTokenExpiryDateById(id: string, verificationTokenExpiryDate: bigint): Promise<void>;
-    updateVerificationTokenExpiryDateByEmail(email: string, verificationTokenExpiryDate: bigint): Promise<void>;
+    getVerificationTokenExpiryDateById(id: string): Promise<number>;
+    getVerificationTokenExpiryDateByEmail(email: string): Promise<number>;
+    updateVerificationTokenExpiryDateById(id: string, verificationTokenExpiryDate: number): Promise<void>;
+    updateVerificationTokenExpiryDateByEmail(email: string, verificationTokenExpiryDate: number): Promise<void>;
     updateEmail(id: string, email: string): Promise<void>;
     updatePasswordById(id: string, password: string): Promise<void>;
     updatePasswordByEmail(email: string, password: string): Promise<void>;
